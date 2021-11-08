@@ -34,7 +34,7 @@ c.forma_pagamento_id as forma_pagamento_id,
 c.valor as valor,
 f.nome as pagamento',' caixa AS c
 INNER JOIN
-forma_pagamento AS f ON (c.forma_pagamento_id = f.id)',$where, 'c.data ASC',$pagination->getLimit());
+forma_pagamento AS f ON (c.forma_pagamento_id = f.id)',$where, 'c.id desc',$pagination->getLimit());
 
 $pagamentos = FormaPagamento :: getList('*','forma_pagamento',null,'nome ASC');
 

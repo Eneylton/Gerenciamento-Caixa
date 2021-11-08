@@ -93,6 +93,8 @@ when 11 then "Novembro"
 when 12 then "Dezembro"
 END) AS mes, SUM(p.valor_venda) as total', 'produtos as p group by MONTH(p.data)', null, null, null);
 
+
+
 include __DIR__ . '/includes/dashboard/header.php';
 include __DIR__ . '/includes/dashboard/top.php';
 include __DIR__ . '/includes/dashboard/menu.php';

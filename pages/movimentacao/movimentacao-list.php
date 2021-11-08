@@ -59,7 +59,7 @@ c.nome AS categoria',
 INNER JOIN
 
 catdespesas AS c ON (m.catdespesas_id = c.id)',
-                                     $where, 'm.id DESC',$pagination->getLimit());
+                                     'm.caixa_id='.$idcaixa, 'm.id DESC',$pagination->getLimit());
 
 $categorias = Catdespesa :: getList('*', 'catdespesas',null,'nome ASC');
 
