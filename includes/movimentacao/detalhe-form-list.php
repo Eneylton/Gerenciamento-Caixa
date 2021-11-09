@@ -263,53 +263,7 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
 
          </div>
 
-         <div class="col-lg-12">
-            <div class="card">
-               <div class="card-header border-0">
-                  <div class="d-flex justify-content-between">
-                     <h3 class="card-title">
-                        <P>PRODUÇÃO DIÁRIA</P>
-                     </h3>
-                     <a href="javascript:void(0);">TOTAL POR DIA </a>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="d-flex">
-                     <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">R$ <?= number_format($saldo, "2", ",", ".") ?></span>
-                        <span>Acumulado do dia</span>
-                     </p>
-                     <p class="ml-auto d-flex flex-column text-right">
-                        <span class="text-success">
-                           <i class="fas fa-arrow-up"></i> &nbsp; Entregas <?= $bruto ?> / <span class="text-danger">
-                           <i class="fas fa-arrow-down"></i> &nbsp; Devoluções <?= $bruto_dev ?>
-                        </span>
-                        </span>
-                        <span class="text-muted">Acumulado do dia </span>
-                     </p>
-                  </div>
-                  <!-- /.d-flex -->
-
-                  <div class="card-body">
-
-                     <canvas id="myChart2" width="400" height="130"></canvas>
-
-                  </div>
-
-                  <div class="d-flex flex-row justify-content-end">
-                     <span class="mr-2">
-                        <i class="fas fa-square text-success"></i> Entrega: <?= $bruto ?>
-                     </span>
-
-                     <span>
-                        <i class="fas fa-square text-danger"></i> Devolução: <?= $dev_total ?>
-                     </span>
-                  </div>
-               </div>
-            </div>
-
-         </div>
-
+      
 
       </div>
 
