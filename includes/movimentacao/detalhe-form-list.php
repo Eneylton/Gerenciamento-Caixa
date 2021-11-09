@@ -44,12 +44,12 @@ foreach ($saida as $item2) {
    $resultados2 .= '<tr>
 
    <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-warning">' .date('d/m/Y  Á\S  H:i:s', strtotime($item2->data))  . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-success">r$ ' . number_format($item2->dinheiro,"2",",",".") . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-success">r$ ' . number_format($item2->cartao,"2",",",".") . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-success">r$ ' . number_format($item2->debito,"2",",",".") . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-success">r$ ' . number_format($item2->pix,"2",",",".") . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-success">r$ ' . number_format($item2->transferencia,"2",",",".") . '</span></h5> </td>
-                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-dark">R$  '.    number_format($subtotal2,"2",",",".").'</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-info">r$ ' . number_format($item2->dinheiro,"2",",",".") . '</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-info">r$ ' . number_format($item2->cartao,"2",",",".") . '</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-info">r$ ' . number_format($item2->debito,"2",",",".") . '</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-info">r$ ' . number_format($item2->pix,"2",",",".") . '</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-info">r$ ' . number_format($item2->transferencia,"2",",",".") . '</span></h5> </td>
+                      <td style="text-transform:uppercase; text-align:center"> <h5><span class="badge badge-pill badge-dark">R$  '.   number_format($subtotal2,"2",",",".").'</span></h5> </td>
                       </tr>
 
                       ';
