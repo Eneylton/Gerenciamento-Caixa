@@ -10,12 +10,8 @@ $saida = 0;
 $caixa = 0;
 $saldo = 0;
 
-
-$id = '';
-
-$list = '';
-
 $resultados = '';
+
 
 foreach ($listar as $item) {
    $id_caixa = $item->caixa_id;
@@ -48,6 +44,9 @@ foreach ($listar as $item) {
                       <td style="display:none">' . $item->pix . '</td>
                       <td style="display:none">' . $item->transferencia . '</td>
                       <td style="display:none">' . $item->categoria . '</td>
+                      <td style="display:none">' . $item->veiculo . '</td>
+                      <td style="display:none">' . $item->placa . '</td>
+                      <td style="display:none">' . $item->caixa_id . '</td>
                       
 
                      <td>
@@ -75,6 +74,7 @@ foreach ($listar as $item) {
                     
                       <td>' . date('d/m/Y à\s H:i:s ', strtotime($item->data)) . '</td>
 
+                      <td style="text-transform: uppercase; font-weight: 600; width:500px">' . $item->veiculo . ' / <span style="color:#ffc266"> ' . $item->placa . ' </span></td>
                       <td style="text-transform: uppercase; font-weight: 600; width:500px">' . $item->categoria . '</td>
 
                       <td style="text-transform: uppercase;font-weight: 600; ">
@@ -92,8 +92,13 @@ foreach ($listar as $item) {
                       <td style="text-align: center;">
                         
                       
-                      <button type="submit" class="btn btn-warning editbtn"> <i class="fa fa-credit-card" aria-hidden="true"></i> </button>
+                      <button type="submit" class="btn btn-success editbtn" > <i class="fas fa-paint-brush"></i> </button>
                       &nbsp;
+
+                       <a href="movimentacao-delete.php?id=' . $item->id . '">
+                       <button type="button" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
+                       </a>
+
 
                       </td>
                       </tr>
@@ -102,15 +107,15 @@ foreach ($listar as $item) {
 }
 
 $resultados = strlen($resultados) ? $resultados : '<tr>
-                                                     <td colspan="11" class="text-center" > Nenhum movimentação encontrada !!!!! </td>
+                                                     <td colspan="12" class="text-center" > Nenhuma movimentação até agora !!!!! </td>
                                                      </tr>';
 
 
-$total_geral += ($total_dinheiro + $total_credito + $total_debito + $total_pix + $total_transferencia);
+                                                     $total_geral += ($total_dinheiro + $total_credito + $total_debito + $total_pix + $total_transferencia);
 
-$caixa = ($total_geral - $saida); 
-
-$saldo = ($total_dinheiro - $saida);
+                                                     $caixa = ($total_geral - $saida); 
+                                                     
+                                                     $saldo = ($total_dinheiro - $saida);
 
 //PAGINAÇÂO
 
@@ -138,14 +143,14 @@ foreach ($paginas as $key => $pagina) {
                      <div class="row ">
                         <div class="col-4">
 
-                           <label>Pesquisar</label>
+                           <label>Buscar por Nome</label>
                            <input type="text" class="form-control" name="buscar" value="<?= $buscar ?>">
 
                         </div>
 
 
                         <div class="col d-flex align-items-end">
-                           <button type="submit" class="btn btn-warning" name="">
+                           <button type="submit" class="btn btn-warning">
                               <i class="fas fa-search"></i>
 
                               Pesquisar
@@ -164,22 +169,18 @@ foreach ($paginas as $key => $pagina) {
 
                   <table class="table table-bordered table-dark table-bordered table-hover table-striped">
                      <thead>
-                        <tr>
-                           <td colspan="11">
+                     <tr>
+                           <td colspan="12">
                               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"> <i class="fas fa-plus"></i> &nbsp; Adicionar</button>
+                             
                               <a href="movimentacao-detalhe.php?id=<?= $id_caixa ?>" >
                                  <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-secondary' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
                                     MOVIMENTAÇÕES </button>
                               </a>
-                              <button type="submit" style="margin-right:50px; font-weight:600; font-size:x-large" class="btn btn-default float-right" data-toggle="modal" data-target="#modal-data"> <i class="fa fa-print"></i> &nbsp; RELATÓRIOS</button>
-                              
-
-                              <a href="gerar-pdf.php" target="_blank">
-                                 <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-danger' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
-                                    FECHAMENTO </button>
-                              </a>
+                     
                               <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $caixa <= 0 ? 'btn btn-danger' : 'btn btn-success' ?> float-right btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i>
                                 SALDO R$ &nbsp;<?= number_format($saldo, "2", ",", ".")  ?></button>
+                              
 
 
                            </td>
@@ -190,6 +191,7 @@ foreach ($paginas as $key => $pagina) {
                            <th style="text-align: center;"> STATUS </th>
                            <th style="text-align: center"> TIPO </th>
                            <th style="text-align: left;width:280px"> DATA </th>
+                           <th style="text-align: left;"> VEÍCULO / PLACA </th>
                            <th style="text-align: left;"> CATEGORIA </th>
                            <th style="text-align: left;width:130px"> DINHEIRO </th>
                            <th style="text-align: left;width:130px"> CRÉDITO </th>
@@ -202,8 +204,9 @@ foreach ($paginas as $key => $pagina) {
                      <tbody>
                         <?= $resultados ?>
                      </tbody>
+
                      <tr>
-                        <td colspan="5" style="text-align: right;">
+                        <td colspan="6" style="text-align: right;">
                            <span style="font-size: 20px; font-weight:600"> TOTAL</span>
                         </td>
                         <td colspan="1">
@@ -252,22 +255,19 @@ foreach ($paginas as $key => $pagina) {
 
 <div class="modal fade" id="modal-default">
    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content bg-light">
          <form action="./movimentacao-insert.php" method="post">
 
-            <input type="hidden" name="idcaixa" value="<?= $idcaixa ?>">
-
             <div class="modal-header">
-               <h4 class="modal-title">MOVIMENTAR
+               <h4 class="modal-title">Nova categoria
                </h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                </button>
             </div>
-            <div class="card-body">
-
+            <div class="modal-body">
                <div class="form-group">
-                  <div class="row">
+               <div class="row">
                      <div class="col-6">
                         <div class="form-group">
                            <label>Veículo</label>
@@ -385,11 +385,11 @@ foreach ($paginas as $key => $pagina) {
 
                </div>
 
-
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">FECHAR</button>
-                  <button type="submit" class="btn btn-primary">SALVAR</button>
-               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+               <button type="submit" class="btn btn-primary">Salvar</button>
+         </div>
 
          </form>
 
@@ -402,127 +402,92 @@ foreach ($paginas as $key => $pagina) {
 <!-- EDITAR -->
 
 <div class="modal fade" id="editmodal">
-   <div class="modal-dialog">
-      <form action="./movimentacao-edit.php" method="GET">
-         <input type="hidden" name="id" id="id">
-         <div class="modal-content">
+   <div class="modal-dialog modal-lg">
+      <form action="./movimentacao-edit.php" method="get">
+         <div class="modal-content bg-light">
             <div class="modal-header">
-               <h4 class="modal-title" style="font-weight:600; text-transform:uppercase; font-size:22px">Pagamento
+               <h4 class="modal-title">Editar
                </h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                </button>
             </div>
             <div class="modal-body">
-
-               <div class="form-group">
-
-                  <div class="row">
-                     <div class="col-lg-2 col-2">
+               <input type="hidden" name="id" id="id">
+               <input type="hidden" name="caixa_id" id="caixa_id">
+               <div class="row">
+                     <div class="col-6">
                         <div class="form-group">
-                           <i style="color:#ff0000; margin-top:10px" class="fa fa-circle"></i>
-                        </div>
-                     </div>
-                     <div class="col-lg-9 col-9">
-                        <div class="form-group">
-
-                           <span style="font-size: 23px;"><?php echo date("d/m/Y H:i:s");  ?></span>
+                           <label>Veículo</label>
+                           <input style="text-transform: uppercase;" type="text" class="form-control" name="veiculo" id="veiculo">
 
                         </div>
+
+                     </div>
+                     <div class="col-6">
+
+                        <label>Placa</label>
+                        <input style="text-transform: uppercase;" class="form-control" name="placa" id="placa">
+
                      </div>
 
 
-                     <div class="col-lg-8 col-8">
+
+                     <div class="col-12">
                         <div class="form-group">
-                           <label>Despesa</label>
-                           <input style="background-color:#ffca10;color:#121212;border:none;font-weight:600; text-transform:uppercase; font-size:13px" type="text" class="form-control" name="categoria" id="categoria" required disabled>
-
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-4">
-                        <div class="form-group">
-                           <label>Valor à pagar </label>
-                           <input style="border:none !important; background-color:#a20808;color:#fff;font-size:18px;font-weight:600 " type="text" class="form-control" name="valor" id="valor" required>
-
-                        </div>
-                     </div>
-
-                     <div class="col-lg-8 col-8">
-
-
-                        <div class="form-group">
-                           <label>Forma de dinheiro</label>
-                           <select class="form-control select2bs4" style="width: 100%;" name="form_pagamento" required>
+                           <label>Categorias</label>
+                           <select class="form-control" style="width: 100%;" name="catdespesas_id" id="catdespesas_id" required>
 
                               <option value=""> Selecione uma categoria </option>
                               <?php
 
-                              foreach ($pagamentos as $item) {
+                              foreach ($categorias as $item) {
                                  echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
                               }
                               ?>
 
                            </select>
-
+                        </div>
+                     </div>
+                     <div class="col-2">
+                        <div class="form-group">
+                           <label>Dinheiro</label>
+                           <input placeholder="R$ 0,00" type="text" class="form-control" name="dinheiro" id="dinheiro22">
+                        </div>
+                     </div>
+                     <div class="col-2">
+                        <div class="form-group">
+                           <label>Crédito</label>
+                           <input  placeholder="R$ 0,00"  type="text" class="form-control" name="cartao" id="cartao22">
+                        </div>
+                     </div>
+                     <div class="col-2">
+                        <div class="form-group">
+                           <label>Débito</label>
+                           <input  placeholder="R$ 0,00"  type="text" class="form-control" name="debito" id="debito22">
+                        </div>
+                     </div>
+                     <div class="col-3">
+                        <div class="form-group">
+                           <label>Pix</label>
+                           <input  placeholder="R$ 0,00"  type="text" class="form-control" name="pix" id="pix22">
+                        </div>
+                     </div>
+                     <div class="col-3">
+                        <div class="form-group">
+                           <label>Transferência</label>
+                           <input  placeholder="R$ 0,00"  type="text" class="form-control" name="transferencia" id="transferencia22">
                         </div>
                      </div>
 
-                     <div class="col-lg-4 col-4">
-
+                     <div class="col-4">
                         <div class="form-group">
-                           <label>Valor Recebido </label>
-                           <input placeholder="R$" style="border:none !important; background-color:#3d9970;color:#fff;font-size:18px;font-weight:600 " type="text" class="form-control" name="valor2" id="dinheiro3" required>
-                        </div>
 
-                     </div>
-
-                  </div>
-               </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-danger" data-dismiss="modal">FECHAR</button>
-               <button type="submit" class="btn btn-primary">PAGAR
-               </button>
-            </div>
-         </div>
-      </form>
-      <!-- /.modal-content -->
-   </div>
-   <!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="modal-data">
-   <div class="modal-dialog modal-lg">
-      <div class="modal-content ">
-         <form action="./gerar-data-pdf.php" method="GET" enctype="multipart/form-data">
-
-            <div class="modal-header">
-               <h4 class="modal-title">Relatórios
-               </h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="card-body">
-
-               <div class="form-group">
-
-                  <div class="row">
-
-                     <div class="col-lg-4 col-4">
-                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataInicio">
-                     </div>
-
-
-                     <div class="col-lg-4 col-4">
-                        <input class="form-control" type="date" value="<?php echo date('Y-m-d') ?>" name="dataFim">
-                     </div>
-                     <div class="col-lg-4 col-4">
-                        <div class="form-group">
+                           <label>Status</label>
                            <div>
                               <div class="form-check form-check-inline">
                                  <label class="form-control">
-                                    <input type="radio" name="status" value="1"> Pago
+                                    <input type="radio" name="status" value="1" checked> Pago
                                  </label>
                               </div>
 
@@ -534,72 +499,47 @@ foreach ($paginas as $key => $pagina) {
                            </div>
                         </div>
                      </div>
-
-
-
-                  </div>
-                  <div class="row">
-
-                     <div class="col-lg-4 col-4">
-
-                        <select class="form-control select2bs4" style="width: 100%;" name="form_pagamento" required>
-
-                           <option value=""> Selecione uma categoria </option>
-                           <?php
-
-                           foreach ($pagamentos as $item) {
-                              echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
-
-                        </select>
-                     </div>
-
-
-                     <div class="col-lg-4 col-4">
-
-                        <select class="form-control select" name="catdespesas_id">
-                           <option value=""> Categaria </option>
-                           <?php
-
-                           foreach ($categorias as $item) {
-                              echo '<option value="' . $item->id . '">' . $item->nome . '</option>';
-                           }
-                           ?>
-
-                        </select>
-
-                     </div>
-                     <div class="col-lg-4 col-4">
+                     <div class="col-4">
                         <div class="form-group">
+
+                           <label>Tipo</label>
                            <div>
+
                               <div class="form-check form-check-inline">
                                  <label class="form-control">
-                                    <input type="radio" name="tipo" value="1"> Receita
+                                    <input type="radio" name="tipo" value="1" checked> Entrada
                                  </label>
                               </div>
 
                               <div class="form-check form-check-inline">
                                  <label class="form-control">
-                                    <input type="radio" name="tipo" value="0"> Despesa
+                                    <input type="radio" name="tipo" value="0"> Saida
                                  </label>
                               </div>
+
+
+
                            </div>
+                        </div>
+                     </div>
+                     <div class="col-4">
+                        <div class="form-group">
+                        <label>Observação</label>
+                           <textarea class="form-control" aria-label="With textarea" name="descricao" id="descricao"></textarea>
                         </div>
                      </div>
 
                   </div>
-               </div>
 
+       
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-               <button type="submit" class="btn btn-primary">Gerar relatório</button>
-            </div>
-
-         </form>
-
-      </div>
+               <button type="submit" class="btn btn-primary">Salvar
+               </button>
+       </div>
+         </div>
+      </form>
       <!-- /.modal-content -->
    </div>
    <!-- /.modal-dialog -->

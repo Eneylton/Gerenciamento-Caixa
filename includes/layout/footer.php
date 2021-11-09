@@ -159,6 +159,59 @@
   })
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#cpf").mask("000.000.000-00")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#dinheiro22").mask("999.999.990,00", {
+      reverse: true
+    })
+  })
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#cpf").mask("000.000.000-00")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#cartao22").mask("999.999.990,00", {
+      reverse: true
+    })
+  })
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#cpf").mask("000.000.000-00")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#debito22").mask("999.999.990,00", {
+      reverse: true
+    })
+  })
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#cpf").mask("000.000.000-00")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#pix22").mask("999.999.990,00", {
+      reverse: true
+    })
+  })
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#cpf").mask("000.000.000-00")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#transferencia22").mask("999.999.990,00", {
+      reverse: true
+    })
+  })
+</script>
+
+
 
 <script>
   $(function() {

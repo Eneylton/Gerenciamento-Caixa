@@ -95,6 +95,138 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
                <div class="card-body">
                   <div class="d-flex">
                      <p class="d-flex flex-column">
+                        <span class="text-bold text-lg">MOVIMENTAÇÕES &nbsp;</span>
+
+                     </p>
+                     <p class="ml-auto d-flex flex-column text-right">
+                        <span class="text-success">
+                           <i class="fas fa-arrow-up"></i>&nbsp; R$ <?= number_format($total_dinheiro,"2",",",".") ?>
+                        </span>
+                        <span class="text-muted">Saldo total em dinheiro</span>
+                     </p>
+                  </div>
+                  <!-- /.d-flex -->
+
+                  <div class="card-body">
+
+                  </div>
+
+                  <div class="d-flex flex-row justify-content-end">
+                     <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> Data
+                     </span>
+
+                     <span>
+                        <i class="fas fa-square text-gray"></i> <?= date('d/m/Y') ?>
+                     </span>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header border-0">
+                  <div class="d-flex justify-content-between">
+                     <h3 class="card-title">CAIXA</h3>
+                     <a href="gerar-pdf.php?id=<?php echo $codigo ?>" target="_blank">RELATÓRIO DETALHADO</a>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="d-flex">
+                     <p class="d-flex flex-column">
+                        <span class="text-bold text-lg">MOVIMENTAÇÕES: &nbsp;</span>
+
+                     </p>
+                     <p class="ml-auto d-flex flex-column text-right">
+                        <span class="text-danger">
+                           <i class="fas fa-arrow-down"></i>&nbsp; R$<?= number_format($total_dinheiro2,"2",",",".") ?>
+                        </span>
+                        <span class="text-muted">Total geral de despesas</span>
+                     </p>
+                  </div>
+                  <!-- /.d-flex -->
+
+                  <div class="card-body">
+
+                     <table class="table">
+                        <thead>
+                           <tr>
+                            
+                              <th>DATA</th>
+                              <th>DINHEIRO</th>
+                              <th>CRÉDITO</th>
+                              <th>DÉBITO</th>             
+                              <th>PIX</th>             
+                              <th>TRASFERÊNCIA</th>
+                              <th>SUBTOTAL</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                         
+                        <?= $resultados2 ?>
+                         
+                        </tbody>
+                        <tr>
+                              <td colspan="1" style="text-align: center;font-weight: 600;">
+                                 TOTAL
+                              </td>
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-danger">R$ <?= number_format($total_dinheiro2,"2",",",".") ?></span></h5>
+                              </td>
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_cartao2,"2",",",".") ?></span></h5>
+                              </td>
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_debito2,"2",",",".") ?></span></h5>
+                              </td>
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_pix2,"2",",",".") ?></span></h5>
+                              </td>
+
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_transferencia2,"2",",",".") ?></span></h5>
+                              </td>
+                              <td  colspan="1" style="text-align: center;">
+                                 
+                                 <h5><span class="badge badge-pill badge-dark">R$ <?= number_format($total2,"2",",",".") ?></span></h5>
+                              </td>
+                           </tr>
+                     </table>
+                  </div>
+
+                  <div class="d-flex flex-row justify-content-end">
+                     <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> Data
+                     </span>
+
+                     <span>
+                        <i class="fas fa-square text-gray"></i> <?= date('d/m/Y') ?>
+                     </span>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+
+
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header border-0">
+                  <div class="d-flex justify-content-between">
+                     <h3 class="card-title">CAIXA</h3>
+                     <a href="gerar-pdf.php?id=" target="_blank"> IMPRIMIR RELATÓRIO</a>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="d-flex">
+                     <p class="d-flex flex-column">
                         <span class="text-bold text-lg">FATURAMENTO DIÁRIO &nbsp;</span>
 
                      </p>
@@ -178,20 +310,20 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
                <div class="card-header border-0">
                   <div class="d-flex justify-content-between">
                      <h3 class="card-title">CAIXA</h3>
-                     <a href="gerar-pdf.php?id=<?php echo $codigo ?>" target="_blank">RELATÓRIO DETALHADO</a>
+                     <a href="gerar-pdf.php?id=" target="_blank"> IMPRIMIR RELATÓRIO</a>
                   </div>
                </div>
                <div class="card-body">
                   <div class="d-flex">
                      <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">DESPESAS DIÁRIAS: &nbsp;</span>
+                        <span class="text-bold text-lg">FATURAMENTO DIÁRIO &nbsp;</span>
 
                      </p>
                      <p class="ml-auto d-flex flex-column text-right">
-                        <span class="text-danger">
-                           <i class="fas fa-arrow-down"></i>&nbsp; R$<?= number_format($total_dinheiro2,"2",",",".") ?>
+                        <span class="text-success">
+                           <i class="fas fa-arrow-up"></i>&nbsp; R$ <?= number_format($total_dinheiro,"2",",",".") ?>
                         </span>
-                        <span class="text-muted">Total geral de despesas</span>
+                        <span class="text-muted">Saldo total em dinheiro</span>
                      </p>
                   </div>
                   <!-- /.d-flex -->
@@ -201,7 +333,6 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
                      <table class="table">
                         <thead>
                            <tr>
-                            
                               <th>DATA</th>
                               <th>DINHEIRO</th>
                               <th>CRÉDITO</th>
@@ -212,40 +343,40 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
                            </tr>
                         </thead>
                         <tbody>
-                         
-                        <?= $resultados2 ?>
-                         
-                        </tbody>
-                        <tr>
+                           <tr>
+                              <?= $resultados ?>
+                           </tr>
+                           <tr>
                               <td colspan="1" style="text-align: center;font-weight: 600;">
                                  TOTAL
                               </td>
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-danger">R$ <?= number_format($total_dinheiro2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-danger">R$ <?= number_format($total_dinheiro,"2",",",".") ?></span></h5>
                               </td>
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_cartao2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-primary">R$ <?= number_format($total_cartao,"2",",",".") ?></span></h5>
                               </td>
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_debito2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-primary">R$ <?= number_format($total_debito,"2",",",".") ?></span></h5>
                               </td>
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_pix2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-primary">R$ <?= number_format($total_pix,"2",",",".") ?></span></h5>
                               </td>
 
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-secondary">R$ <?= number_format($total_transferencia2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-primary">R$ <?= number_format($total_transferencia,"2",",",".") ?></span></h5>
                               </td>
                               <td  colspan="1" style="text-align: center;">
                                  
-                                 <h5><span class="badge badge-pill badge-dark">R$ <?= number_format($total2,"2",",",".") ?></span></h5>
+                                 <h5><span class="badge badge-pill badge-dark">R$ <?= number_format($total,"2",",",".") ?></span></h5>
                               </td>
                            </tr>
+                        </tbody>
                      </table>
                   </div>
 
@@ -262,7 +393,6 @@ $resultados = strlen($resultados) ? $resultados : '<tr>
             </div>
 
          </div>
-
       
 
       </div>

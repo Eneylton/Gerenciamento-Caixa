@@ -30,20 +30,43 @@ if (!$value instanceof Movimentacao) {
 }
 
 
-if (isset($_GET['form_pagamento'])) {
+if (isset($_GET['id'])) {
     date_default_timezone_set('America/Sao_Paulo');
 
-    $val1              = $_GET['valor2'];
-    $val2              = str_replace(".", "", $val1);
-    $preco             = str_replace(",", ".",$val2);
+    $din1               = $_GET['dinheiro'];
+    $din2               = str_replace(".", "", $din1);
+    $preco1             = str_replace(",", ".",$din2);
 
-    $value->status = 1;
-    $value->data = date('Y-m-d H:i:s');
-    $value->forma_pagamento_id = $_GET['form_pagamento'];
-    $value->valor =  $preco;
+    $cart1              = $_GET['cartao'];
+    $cart2              = str_replace(".", "", $cart1);
+    $preco2             = str_replace(",", ".",$cart2);
+
+    $deb1               = $_GET['debito'];
+    $deb2               = str_replace(".", "", $deb1);
+    $preco3             = str_replace(",", ".",$deb2);
+
+    $deb1               = $_GET['pix'];
+    $deb2               = str_replace(".", "", $deb1);
+    $preco4             = str_replace(",", ".",$deb2);
+
+    $transf1            = $_GET['transferencia'];
+    $transf2            = str_replace(".", "", $transf1);
+    $preco5             = str_replace(",", ".",$transf2);
+
+    $value->catdespesas_id = $_GET['catdespesas_id'];
+    $value->status =         $_GET['status'];
+    $value->tipo =           $_GET['tipo'];
+    $value->descricao =      $_GET['descricao'];
+    $value->dinheiro =       $preco1;
+    $value->cartao =         $preco2;
+    $value->debito =         $preco3;
+    $value->pix =            $preco4;
+    $value->transferencia  = $preco5;
+    $value->veiculo =        $_GET['veiculo'];
+    $value->placa =          $_GET['placa'];
     $value->atualizar();
 
-    header('location: movimentacao-list.php?status=success');
+    header('location: movimentacao-list.php?id='.$_POST['idcaixa']);
 
     exit;
 }

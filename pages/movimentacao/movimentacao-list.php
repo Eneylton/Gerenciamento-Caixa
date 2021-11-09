@@ -52,6 +52,8 @@ m.dinheiro as dinheiro,
 m.cartao as cartao,
 m.debito as debito,
 m.pix as pix,
+m.veiculo as veiculo,
+m.placa as placa,
 m.transferencia as transferencia,
 c.nome AS categoria',
                                                             
@@ -84,83 +86,21 @@ $(document).ready(function(){
         }).get();
 
         $('#id').val(data[0]);
-        $('#usuarios_id').val(data[1]);
-        $('#catdespesas_id').val(data[2]);
-        $('#forma_pagamento_id').val(data[3]);
-        $('#data').val(data[4]);
-        $('#valor').val(data[5]);
-        $('#descricao').val(data[6]);
-        $('#tipo').val(data[7]);
-        $('#status').val(data[8]);
-        $('#usuario').val(data[9]);
-        $('#categoria').val(data[10]);
-        $('#pagamento').val(data[11]);
+        $('#catdespesas_id').val(data[1]);
+        $('#data').val(data[2]);
+        $('#descricao').val(data[3]);
+        $('#tipo').val(data[4]);
+        $('#status').val(data[5]);
+        $('#dinheiro22').val(data[6]);
+        $('#cartao22').val(data[7]);
+        $('#debito22').val(data[8]);
+        $('#pix22').val(data[9]);
+        $('#transferencia22').val(data[10]);
+        $('#categoria').val(data[11]);
+        $('#veiculo').val(data[12]);
+        $('#placa').val(data[13]);
+        $('#caixa_id').val(data[14]);
+       
     });
 });
 </script>
-
-
-<script type="text/javascript">
-
-    function carregarImg() {
-
-        var target = document.getElementById('target');
-        var file = document.querySelector("input[type=file]").files[0];
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            target.src = reader.result;
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-
-
-        } else {
-            target.src = "";
-        }
-    }
-
-</script>
-
-<script>
-
-$("#valor_compra").on("change", function(){
-
-    var idCompra = $("#valor_compra").val();
-    $.ajax({
-        url:'produto-list.php',
-        type:'POST',
-        data:{
-            id:idCompra
-        },
-        success: function(data){
-            $('#valor_venda').val(Number((idCompra) / 0.40).toFixed(2));
-        }
-
-    })
-
-});
-
-</script> 
-
-<script>
-
-$("#compra1").on("change", function(){
-
-    var idCompra = $("#compra1").val();
-    $.ajax({
-        url:'produto-list.php',
-        type:'POST',
-        data:{
-            id:idCompra
-        },
-        success: function(data){
-            $('#venda1').val(Number((idCompra) / 0.40).toFixed(2));
-        }
-
-    })
-
-});
-
-</script> 
