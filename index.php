@@ -12,86 +12,63 @@ Login::requireLogin();
 
 $resultado = "";
 
-$diaria = Movimentacao::getListOne('sum(m.valor) as dia', 'movimentacoes AS m
+$diaria = Movimentacao::getListOne('sum(m.dinheiro) as dia', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'm.data >= current_date() AND m.tipo=1 AND m.status=1 ', null, null);
+', 'm.data >= current_date() AND m.tipo=1 AND m.status=1 ', null, null);
 
 $dia = $diaria->dia;
 
-$mensal = Movimentacao::getListOne('sum(m.valor) as mes', 'movimentacoes AS m
+$mensal = Movimentacao::getListOne('sum(m.dinheiro) as mes', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'month(m.data) AND m.tipo=1 AND m.status=1', null, null);
+', 'month(m.data) AND m.tipo=1 AND m.status=1', null, null);
 
 $mes = $mensal->mes;
 
-$despesadia = Movimentacao::getListOne('sum(m.valor) as despdia', 'movimentacoes AS m
+$despesadia = Movimentacao::getListOne('sum(m.dinheiro) as despdia', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'm.data >= current_date() AND m.tipo = 0 AND m.status = 1', null, null);
+', 'm.data >= current_date() AND m.tipo = 0 AND m.status = 1', null, null);
 
 $despesadia = $despesadia->despdia;
 
-$despesames = Movimentacao::getListOne('sum(m.valor) as desmes', 'movimentacoes AS m
+$despesames = Movimentacao::getListOne('sum(m.dinheiro) as desmes', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'month(m.data) AND m.tipo = 0 AND m.status = 1', null, null);
+', 'month(m.data) AND m.tipo = 0 AND m.status = 1', null, null);
 
 $despesames = $despesames->desmes;
 
-$pagar = Movimentacao::getListOne('sum(m.valor) as pagamento', 'movimentacoes AS m
+$pagar = Movimentacao::getListOne('sum(m.dinheiro) as pagamento', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'm.tipo = 0 AND m.status = 0', null, null);
+', 'm.tipo = 0 AND m.status = 0', null, null);
 
 $pagamento = $pagar->pagamento;
 
-$receb = Movimentacao::getListOne('sum(m.valor) as receber', 'movimentacoes AS m
+$receb = Movimentacao::getListOne('sum(m.dinheiro) as receber', 'movimentacoes AS m
 INNER JOIN
 catdespesas AS c ON (m.catdespesas_id = c.id)
-INNER JOIN
-forma_pagamento AS f ON (m.forma_pagamento_id = f.id)
-INNER JOIN
-usuarios AS u ON (m.usuarios_id = u.id)', 'm.tipo = 1 AND m.status = 0', null, null);
+', 'm.tipo = 1 AND m.status = 0', null, null);
 
 $recebimento = $receb->receber;
 
-$invent = Movimentacao::getListOne('sum(p.valor_venda) as total', 'produtos as p ', 'month(p.data) = MONTH(CURRENT_DATE())', null, null);
 
-$inventario = $invent->total;
-
-$lucro = ($dia - $despesadia);
-
-$grafico = Movimentacao::getList('(CASE month(p.data) 
-when 1 then "Janeiro"
-when 2 then "Fevereiro"
-when 3 then "Março"
-when 4 then "Abril"
-when 5 then "Maio"
-when 6 then "Junho"
-when 7 then "Julho"
-when 8 then "Agosto"
-when 9 then "Setembro"
-when 10 then "Outubro"
-when 11 then "Novembro"
-when 12 then "Dezembro"
-END) AS mes, SUM(p.valor_venda) as total', 'produtos as p group by MONTH(p.data)', null, null, null);
+// $grafico = Movimentacao::getList('(CASE month(p.data) 
+// when 1 then "Janeiro"
+// when 2 then "Fevereiro"
+// when 3 then "Março"
+// when 4 then "Abril"
+// when 5 then "Maio"
+// when 6 then "Junho"
+// when 7 then "Julho"
+// when 8 then "Agosto"
+// when 9 then "Setembro"
+// when 10 then "Outubro"
+// when 11 then "Novembro"
+// when 12 then "Dezembro"
+// END) AS mes, SUM(p.valor_venda) as total', 'produtos as p group by MONTH(p.data)', null, null, null);
 
 
 

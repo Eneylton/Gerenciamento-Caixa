@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '../../../vendor/autoload.php';
 
-
+use App\Entidy\Movimentacao;
 use App\Session\Login;
 
 define('TITLE','Movimentações financeiras');
@@ -14,6 +14,19 @@ if(isset($_GET['id'])){
     $idcaixa = $_GET['id'];
  
 }
+
+$entrada = Movimentacao :: getList('m.data as data, SUM(m.dinheiro) AS dinheiro,
+SUM(m.cartao) AS cartao,
+SUM(m.debito) AS debito,
+SUM(m.pix) AS pix,
+SUM(m.transferencia) AS transferencia',' movimentacoes AS m','m.tipo = 1 AND m.caixa_id ='.$idcaixa,null,null);
+
+$saida = Movimentacao :: getList('m.data as data, SUM(m.dinheiro) AS dinheiro,
+SUM(m.cartao) AS cartao,
+SUM(m.debito) AS debito,
+SUM(m.pix) AS pix,
+SUM(m.transferencia) AS transferencia',' movimentacoes AS m','m.tipo = 0 AND m.caixa_id ='.$idcaixa,null,null);
+
 
 include __DIR__ . '../../../includes/layout/header.php';
 include __DIR__ . '../../../includes/layout/top.php';

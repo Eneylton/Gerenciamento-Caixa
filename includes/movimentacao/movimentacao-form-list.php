@@ -8,6 +8,7 @@ $total_transferencia = 0;
 $total_geral = 0;
 $saida = 0;
 $caixa = 0;
+$saldo = 0;
 
 
 $id = '';
@@ -109,6 +110,7 @@ $total_geral += ($total_dinheiro + $total_credito + $total_debito + $total_pix +
 
 $caixa = ($total_geral - $saida); 
 
+$saldo = ($total_dinheiro - $saida);
 
 //PAGINAÇÂO
 
@@ -177,7 +179,7 @@ foreach ($paginas as $key => $pagina) {
                                     FECHAMENTO </button>
                               </a>
                               <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $caixa <= 0 ? 'btn btn-danger' : 'btn btn-success' ?> float-right btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                 R$ &nbsp;<?= number_format($caixa, "2", ",", ".")  ?></button>
+                                SALDO R$ &nbsp;<?= number_format($saldo, "2", ",", ".")  ?></button>
 
 
                            </td>
@@ -205,7 +207,7 @@ foreach ($paginas as $key => $pagina) {
                            <span style="font-size: 20px; font-weight:600"> TOTAL</span>
                         </td>
                         <td colspan="1">
-                           <span style="font-size: 20px; font-weight:600">R$ <?= number_format($total_dinheiro,"2",",",".") ?> </span>
+                           <span style="font-size: 20px; font-weight:600">R$ <?= number_format($saldo,"2",",",".") ?> </span>
                         </td>
                         <td colspan="1">
                            <span style="font-size: 20px; font-weight:600;color:#79d7ad">R$ <?= number_format($total_credito,"2",",",".") ?> </span>

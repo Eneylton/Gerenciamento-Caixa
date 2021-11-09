@@ -156,7 +156,7 @@ foreach ($paginas as $key => $pagina) {
                </div>
                <div class="form-group">
                         <label>Forma de pagamento</label>
-                        <select class="form-control select" style="width: 100%;" name="forma_pagamento_id">
+                        <select class="form-control select" style="width: 100%;" name="forma_pagamento_id" required>
                            <option value=""> Selecione um tipo de pagamento </option>
                            <?php
 
