@@ -33,6 +33,8 @@ if (!$value instanceof Movimentacao) {
 if (isset($_GET['id'])) {
     date_default_timezone_set('America/Sao_Paulo');
 
+    $idcaixa = $_GET['caixa_id'];
+
     $din1               = $_GET['dinheiro'];
     $din2               = str_replace(".", "", $din1);
     $preco1             = str_replace(",", ".",$din2);
@@ -66,7 +68,7 @@ if (isset($_GET['id'])) {
     $value->placa =          $_GET['placa'];
     $value->atualizar();
 
-    header('location: movimentacao-list.php?id='.$_POST['idcaixa']);
+    header('location: movimentacao-list.php?id='.$idcaixa);
 
     exit;
 }

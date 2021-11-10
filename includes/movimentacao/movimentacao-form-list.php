@@ -11,6 +11,7 @@ $caixa = 0;
 $saldo = 0;
 
 $resultados = '';
+$veiculo = '';
 
 
 foreach ($listar as $item) {
@@ -28,6 +29,13 @@ foreach ($listar as $item) {
       default:
          $saida += $item->dinheiro;
          break;
+   }
+
+   if(empty($item->veiculo)){
+
+   $veiculo = '<span style="color:#5f6368"> Nenhum !!!! </span>';
+   }else{
+      $veiculo = $item->veiculo;
    }
 
 
@@ -74,7 +82,7 @@ foreach ($listar as $item) {
                     
                       <td>' . date('d/m/Y à\s H:i:s ', strtotime($item->data)) . '</td>
 
-                      <td style="text-transform: uppercase; font-weight: 600; width:500px">' . $item->veiculo . ' / <span style="color:#ffc266"> ' . $item->placa . ' </span></td>
+                      <td style="text-transform: uppercase; font-weight: 600; width:500px">' . $veiculo . ' / <span style="color:#ffc266"> ' . $item->placa . ' </span></td>
                       <td style="text-transform: uppercase; font-weight: 600; width:500px">' . $item->categoria . '</td>
 
                       <td style="text-transform: uppercase;font-weight: 600; ">
@@ -92,14 +100,8 @@ foreach ($listar as $item) {
                       <td style="text-align: center;">
                         
                       
-                      <button type="submit" class="btn btn-success editbtn" > <i class="fas fa-paint-brush"></i> </button>
+                      <button type="submit" class="btn btn-warning editbtn" > <i class="fas fa-paint-brush"></i> </button>
                       &nbsp;
-
-                       <a href="movimentacao-delete.php?id=' . $item->id . '">
-                       <button type="button" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
-                       </a>
-
-
                       </td>
                       </tr>
 
@@ -174,11 +176,11 @@ foreach ($paginas as $key => $pagina) {
                               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"> <i class="fas fa-plus"></i> &nbsp; Adicionar</button>
                              
                               <a href="movimentacao-detalhe.php?id=<?= $id_caixa ?>" >
-                                 <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-secondary' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
+                                 <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $total_diaria <= 0 ? 'btn btn-danger' : 'btn btn-default' ?> float-right btn-lg"> <i class="fa fa-print" aria-hidden="true"></i>
                                     MOVIMENTAÇÕES </button>
                               </a>
                      
-                              <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $caixa <= 0 ? 'btn btn-danger' : 'btn btn-success' ?> float-right btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                              <button style="margin-right:50px; font-weight:600; font-size:x-large" type="submit" class="<?= $saldo <= 0 ? 'btn btn-danger' : 'btn btn-success' ?> float-right btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i>
                                 SALDO R$ &nbsp;<?= number_format($saldo, "2", ",", ".")  ?></button>
                               
 
@@ -193,11 +195,11 @@ foreach ($paginas as $key => $pagina) {
                            <th style="text-align: left;width:280px"> DATA </th>
                            <th style="text-align: left;"> VEÍCULO / PLACA </th>
                            <th style="text-align: left;"> CATEGORIA </th>
-                           <th style="text-align: left;width:130px"> DINHEIRO </th>
-                           <th style="text-align: left;width:130px"> CRÉDITO </th>
-                           <th style="text-align: left;width:130px"> DÉBITO </th>
-                           <th style="text-align: left;width:130px"> PIX </th>
-                           <th style="text-align: left;width:130px"> TRANSFERÊNCIA </th>
+                           <th style="text-align: left;width:180px"> DINHEIRO </th>
+                           <th style="text-align: left;width:180px"> CRÉDITO </th>
+                           <th style="text-align: left;width:180px"> DÉBITO </th>
+                           <th style="text-align: left;width:180px"> PIX </th>
+                           <th style="text-align: left;width:180px"> TRANSFERÊNCIA </th>
                            <th style="text-align: center;width:200px"> AÇÃO </th>
                         </tr>
                      </thead>
@@ -209,10 +211,16 @@ foreach ($paginas as $key => $pagina) {
                         <td colspan="6" style="text-align: right;">
                            <span style="font-size: 20px; font-weight:600"> TOTAL</span>
                         </td>
-                        <td colspan="1">
-                           <span style="font-size: 20px; font-weight:600">R$ <?= number_format($saldo,"2",",",".") ?> </span>
+                        <td colspan="1" style="text-align: left">
+                           <?php
+                             if($saldo <= 0){
+                                echo '<span style="font-size: 20px; font-weight:600; color:#ff0000">R$ &nbsp;'. number_format($saldo,"2",",","."). '</span>';
+                             }else{
+                              echo '<span style="font-size: 20px; font-weight:600; color:#4cb909">R$  &nbsp;'. number_format($saldo,"2",",","."). '</span>';
+                             }
+                           ?>
                         </td>
-                        <td colspan="1">
+                        <td colspan="1"  style="text-align: left">
                            <span style="font-size: 20px; font-weight:600;color:#79d7ad">R$ <?= number_format($total_credito,"2",",",".") ?> </span>
                         </td>
                         <td colspan="1" style="text-align: left">
@@ -257,6 +265,8 @@ foreach ($paginas as $key => $pagina) {
    <div class="modal-dialog modal-lg">
       <div class="modal-content bg-light">
          <form action="./movimentacao-insert.php" method="post">
+
+            <input type="hidden" name="idcaixa" value="<?=  $idcaixa ?>">
 
             <div class="modal-header">
                <h4 class="modal-title">Nova categoria

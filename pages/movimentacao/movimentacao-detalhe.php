@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '../../../vendor/autoload.php';
 
+use App\Entidy\Caixa;
 use App\Entidy\Movimentacao;
 use App\Session\Login;
 
@@ -12,6 +13,10 @@ Login::requireLogin();
 if(isset($_GET['id'])){
 
     $idcaixa = $_GET['id'];
+
+    $result = Caixa :: getID('*','caixa',$idcaixa,null,null);
+
+    $troco = $result->valor;
  
 }
 
@@ -27,6 +32,9 @@ SUM(m.debito) AS debito,
 SUM(m.pix) AS pix,
 SUM(m.transferencia) AS transferencia',' movimentacoes AS m','m.tipo = 0 AND m.caixa_id ='.$idcaixa,null,null);
 
+$caixa  = Caixa :: getID('*','caixa',$idcaixa,null,null);
+
+$valor_caixa = $caixa->valor;
 
 include __DIR__ . '../../../includes/layout/header.php';
 include __DIR__ . '../../../includes/layout/top.php';
@@ -129,3 +137,201 @@ $("#compra1").on("change", function(){
 });
 
 </script> 
+
+<script type="text/javascript">
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+
+            <?php
+           
+            foreach ($entrada as $item) {
+           
+                echo "'".date('d / M', strtotime($item->data))."',";
+            }
+             
+            ?>
+        ]
+        ,
+        datasets: [{
+            label: '• ENTRADA •',
+            data: [
+                <?php
+            foreach ($entrada as $item) {
+                echo "'".$item->dinheiro."',";
+            }
+             
+            ?>
+            ],
+            backgroundColor: [
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+             
+            ],
+            borderColor: [
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8',
+                '#6fe633a8'
+             
+            ],
+            borderWidth: 1
+        },
+        
+        {
+            label: '• SAIDA •',
+            data: [
+                
+                
+                <?php
+            foreach ($saida as $item) {
+                echo "'".$item->dinheiro."',";
+            }
+             
+            ?>
+            ],
+            backgroundColor: [
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000'
+            ],
+            borderColor: [
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000',
+                '#ff0000'
+             
+            ],
+            borderWidth: 1
+        }
+        
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
